@@ -31,6 +31,11 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  s, res = dice.sort.join, 0
+  res += 1000 and s.sub!('111','') if /111/.match s
+  res += $1.to_i * 100 and s.sub!($1*3,'') if /(.)\1{2}/.match s
+  res += s.count('1')*100 + s.count('5')*50
+  res
 end
 
 class AboutScoringProject < Neo::Koan
